@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const tree_kill_1 = __importDefault(require("tree-kill"));
 const electron_1 = require("electron");
 const path_1 = __importDefault(require("path"));
 const child_process_1 = require("child_process");
@@ -15,6 +16,14 @@ const getPythonPath = () => {
 };
 const startFlaskServer = () => {
     flaskProcess = (0, child_process_1.spawn)(getPythonPath(), [electron_1.app.isPackaged ? '../flask-bin/flask-app.exe' : 'app.py'], { cwd: electron_1.app.isPackaged ? process.resourcesPath : __dirname });
+};
+const killFlaskProcess = () => {
+    if (flaskProcess && flaskProcess.pid) {
+        (0, tree_kill_1.default)(flaskProcess.pid, 'SIGTERM', (err) => {
+            if (err)
+                console.error('プロセス終了エラー:', err);
+        });
+    }
 };
 const createWindow = () => {
     win = new electron_1.BrowserWindow({
@@ -44,7 +53,16 @@ electron_1.app.whenReady().then(() => {
 });
 electron_1.app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
-        flaskProcess.kill();
+        killFlaskProcess();
         electron_1.app.quit();
     }
+});
+// アプリ終了直前処理
+electron_1.app.on('before-quit', () => {
+    killFlaskProcess();
+});
+// 開発者による明示的終了時
+electron_1.ipcMain.on('force-quit', () => {
+    killFlaskProcess();
+    electron_1.app.quit();
 });

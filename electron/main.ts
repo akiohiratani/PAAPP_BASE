@@ -1,3 +1,4 @@
+import treeKill from 'tree-kill';
 import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'path';
 import { spawn } from 'child_process';
@@ -17,6 +18,14 @@ const startFlaskServer = () => {
     [app.isPackaged ? '../flask-bin/flask-app.exe' : 'app.py'],
     { cwd: app.isPackaged ? process.resourcesPath : __dirname }
   );
+};
+
+const killFlaskProcess = () => {
+  if (flaskProcess && flaskProcess.pid) {
+    treeKill(flaskProcess.pid, 'SIGTERM', (err) => {
+      if (err) console.error('プロセス終了エラー:', err);
+    });
+  }
 };
 
 const createWindow = () => {
@@ -52,7 +61,18 @@ app.whenReady().then(() => {
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
-    flaskProcess.kill();
+    killFlaskProcess();
     app.quit();
   }
+});
+
+// アプリ終了直前処理
+app.on('before-quit', () => {
+  killFlaskProcess();
+});
+
+// 開発者による明示的終了時
+ipcMain.on('force-quit', () => {
+  killFlaskProcess();
+  app.quit();
 });

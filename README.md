@@ -1,5 +1,5 @@
 ## 構成
-
+```
 electron-flask-app/
 ├── electron/              # Electronメインプロセス
 │   ├── main.ts            # メインスクリプト
@@ -15,7 +15,7 @@ electron-flask-app/
 │   └── package.json       # フロントエンド依存関係
 ├── package.json           # ルートプロジェクト設定
 └── .env                   # 環境変数設定
-
+```
 ## 開発
 
 ### バックエンド
@@ -40,7 +40,7 @@ start:electron
 
 
 # 本番環境向けビルド手順
-
+```
 rmdir /s /q dist
 rmdir /s /q flask-backend\dist
 rmdir /s /q react-frontend\build
@@ -48,4 +48,7 @@ rmdir /s /q react-frontend\build
 npm run build:flask
 npm run build:react
 npm run build:electron
+
 npx electron-builder --win --config electron-builder.config.js
+
+```
