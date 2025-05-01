@@ -1,68 +1,24 @@
-# Node.js
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
+# ルートのnode_modules（Electron用）
+/node_modules/
 
-# Vite/React/TypeScript
-dist/
-build/
-.vite/
-*.tsbuildinfo
-
-# 環境変数
+# ルートの環境変数ファイル
 .env
 .env.*
-!.env.example
-.env.local
-.env.*.local
 
-# エディタ・OS
-.vscode/
-.idea/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
+# OSやエディタの一時ファイル
 .DS_Store
 Thumbs.db
+.vscode/
+.idea/
+*.swp
 
-# Python/Flask
-__pycache__/
-*.py[cod]
-*.so
-*.egg-info/
-.eggs/
-*.pyo
-*.pyd
-.venv/
-venv/
-ENV/
-env/
-instance/
-.pytest_cache/
-.coverage
-htmlcov/
-.mypy_cache/
-.pyre/
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Flaskビルド成果物
-dist/
-build/
-
-# Electron
-/out/
-release/
-*.asar
-
-# テスト・カバレッジ
-coverage/
-*.cover
-*.py,cover
-.hypothesis/
-
-# その他
+# ログ
 *.log
+
+# Electronビルド成果物
+/dist/
+out/
+release/
+
+# Python仮想環境（Flask用、venv名は変更に注意）
+/flask-backend/venv/
