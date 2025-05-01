@@ -13,7 +13,7 @@ app.register_blueprint(races_bp)
 @app.route('/api/data')
 def get_data():
     # http://127.0.0.1:5000/api/data
-    return jsonify({"message": "111111111111111", "status": 200})
+    return jsonify({"message": "Welcome to Akio Local Engine", "status": 200})
 
 # flask-backend/app.py 追記
 @app.after_request
