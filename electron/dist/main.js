@@ -26,6 +26,7 @@ const killFlaskProcess = () => {
     }
 };
 const createWindow = () => {
+    electron_1.Menu.setApplicationMenu(null);
     win = new electron_1.BrowserWindow({
         width: 1200,
         height: 800,

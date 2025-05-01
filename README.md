@@ -37,6 +37,7 @@ npm run start
 ```
 ## Electron
 start:electron
+npx electron-packager . AkioHorseSearcher --platform=win32 --icon=assets/icon.ico
 
 
 # 本番環境向けビルド手順

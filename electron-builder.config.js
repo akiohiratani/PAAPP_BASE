@@ -1,5 +1,5 @@
 module.exports = {
-  productName: "ElectronFlaskApp",
+  productName: "AkioHorseSearcher",
   appId: "com.example.electronflask",
   directories: {
     output: "dist"

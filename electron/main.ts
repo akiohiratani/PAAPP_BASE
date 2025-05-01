@@ -1,5 +1,5 @@
 import treeKill from 'tree-kill';
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain, Menu} from 'electron';
 import path from 'path';
 import { spawn } from 'child_process';
 
@@ -29,6 +29,7 @@ const killFlaskProcess = () => {
 };
 
 const createWindow = () => {
+  Menu.setApplicationMenu(null);
   win = new BrowserWindow({
     width: 1200,
     height: 800,

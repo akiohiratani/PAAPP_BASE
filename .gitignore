@@ -22,3 +22,4 @@ release/
 
 # Python仮想環境（Flask用、venv名は変更に注意）
 /flask-backend/venv/
+/AkioHorseSearcher-win32-x64/
