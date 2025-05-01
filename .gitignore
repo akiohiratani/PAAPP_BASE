@@ -1,0 +1,68 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Vite/React/TypeScript
+dist/
+build/
+.vite/
+*.tsbuildinfo
+
+# 環境変数
+.env
+.env.*
+!.env.example
+.env.local
+.env.*.local
+
+# エディタ・OS
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+.DS_Store
+Thumbs.db
+
+# Python/Flask
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+.eggs/
+*.pyo
+*.pyd
+.venv/
+venv/
+ENV/
+env/
+instance/
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.pyre/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Flaskビルド成果物
+dist/
+build/
+
+# Electron
+/out/
+release/
+*.asar
+
+# テスト・カバレッジ
+coverage/
+*.cover
+*.py,cover
+.hypothesis/
+
+# その他
+*.log
