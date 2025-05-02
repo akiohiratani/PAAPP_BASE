@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState} from 'react';
+import { useState} from 'react';
 import { Horse } from '../domain/models/Horse';
 import { searchHorsesByHorseName, searchHorsesByRace, exportHorseCSVData} from '../infrastructure/api/HorseApiClient';
 import SearchForm from '../components/features/horse/SearchForm';

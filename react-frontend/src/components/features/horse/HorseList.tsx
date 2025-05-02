@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Horse } from '../../../domain/models/Horse';
 import { FavoriteButton } from './FavoriteButton';
 import { History } from '../../../domain/models/History';

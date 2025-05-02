@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Race } from '../../../domain/models/Race';
 import { searchRaces } from '../../../infrastructure/api/RaceApiClient';
 import { SearchType } from './type/SearchType';

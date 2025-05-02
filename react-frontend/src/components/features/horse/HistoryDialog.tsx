@@ -1,4 +1,3 @@
-import React from "react";
 import { Horse } from "../../../domain/models/Horse";
 
 type Props = {
