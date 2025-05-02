@@ -18,8 +18,8 @@ export const ConfirmDialog = ({ open, onClose, onExecute, exeuteType }: Props) =
       message = "表示されている競走馬を全てお気に入り登録します。";
       break;
     case "BulkCancellation":
-      title = "一括解除";
-      message = "お気に入りを全て解除します。";
+      title = "クリア";
+      message = "検索結果・お気に入り登録を全て削除します。";
       break;
     default:
       return null;

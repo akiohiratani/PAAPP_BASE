@@ -64,6 +64,12 @@ export default function HorseSearchPage() {
     }
   };
 
+  const OnFavariteHorseUpdate = () => {
+    const favoriteService = FavoriteHorseService.getInstance();
+    const favariteSearchResult = favoriteService.getAllFavorites();
+    setHorses(favariteSearchResult);
+  }
+
   const handleSetCsvExportDialog = () =>{
     const favoriteService = FavoriteHorseService.getInstance();
     const favariteSearchResult = favoriteService.getAllFavorites();
@@ -116,7 +122,7 @@ export default function HorseSearchPage() {
         message={isAlertDialog.message} 
         onClose={()=> SetIsAlertDialog({"open": false, "message": ""})}/>
       <HorseList horses={horses} />
-      <BulkOperationButtons horses={horses} />
+      <BulkOperationButtons horses={horses} onUpdate={OnFavariteHorseUpdate}/>
       <CsvExportDialog 
         open={isCsvExportDialog}
         onClose={() => {setCsvExportDialog(false)}}
