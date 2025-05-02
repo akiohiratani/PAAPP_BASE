@@ -25,7 +25,7 @@ export const HistoryDialog = ({ open, onClose, horse }: Props) => {
               rel="noopener noreferrer">
             <div>
               <div className="flex items-center space-x-2">
-                <span>{horse.name}</span>
+                <span className="text-blue-600 underline hover:text-blue-800 cursor-pointer">{horse.name}</span>
                 <span className="text-sm text-white bg-blue-400 rounded px-2 py-0.5">{horse.sex}</span>
               </div>
               <div className="text-xs text-gray-500 mt-1">

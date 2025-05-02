@@ -10,6 +10,7 @@ import { SearchType } from '../components/features/horse/type/SearchType';
 import { AlertDialog } from '../components/features/horse/AlertDialog';
 import { FavoriteHorseService } from '../infrastructure/holder/FavoriteHorseService';
 import { CsvExportDialog } from '../components/features/horse/CsvExportDialog';
+import { BulkOperationButtons } from '../components/features/horse/BulkOperationButtons';
 
 export default function HorseSearchPage() {
   const [horses, setHorses] = useState<Horse[]>([]);
@@ -115,6 +116,7 @@ export default function HorseSearchPage() {
         message={isAlertDialog.message} 
         onClose={()=> SetIsAlertDialog({"open": false, "message": ""})}/>
       <HorseList horses={horses} />
+      <BulkOperationButtons horses={horses} />
       <CsvExportDialog 
         open={isCsvExportDialog}
         onClose={() => {setCsvExportDialog(false)}}
