@@ -8,10 +8,12 @@ import HorseList from '../components/features/horse/HorseList';
 import { SearchDialog } from '../components/features/horse/SearchDialog';
 import { SearchType } from '../components/features/horse/type/SearchType';
 import { FavoriteHorseService } from '../infrastructure/holder/FavoriteHorseService';
+import { CsvExportDialog } from '../components/features/horse/CsvExportDialog';
 
 export default function HorseSearchPage() {
   const [horses, setHorses] = useState<Horse[]>([]);
   const [loading, setLoading] = useState(false);
+  const [isCsvExportDialog, setCsvExportDialog] = useState(false)
 
   const handleSearch = async (keyword: SearchType) => {
     setLoading(true);
@@ -50,15 +52,33 @@ export default function HorseSearchPage() {
     }
   };
 
+  // CSV出力ボタンのクリック処理例
+  const onExportCSVFile = () => {
+    setCsvExportDialog(false);
+    alert("出力開始");
+  }
+
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4">競走馬検索</h1>
+      <div className="flex items-center justify-between mb-4">
+        <h1 className="text-2xl font-bold">競走馬検索</h1>
+        <button
+          onClick={() => {setCsvExportDialog(true)}}
+          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+        >
+          CSV出力
+        </button>
+      </div>
       <SearchForm onSearch={handleSearch} />
       {loading ? (
         <SearchDialog isOpen={loading} message="検索中..."/>
       ) : (
         <HorseList horses={horses} />
       )}
+      <CsvExportDialog 
+        open={isCsvExportDialog}
+        onClose={() => {setCsvExportDialog(false)}}
+        onExport={() => onExportCSVFile()}/>
     </div>
   );
 }
