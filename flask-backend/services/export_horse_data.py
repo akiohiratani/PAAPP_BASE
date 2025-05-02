@@ -1,3 +1,6 @@
+import os
+import zipfile
+import shutil
 import pandas as pd
 import numpy as np
 import datetime
@@ -10,17 +13,19 @@ from domain.horce_info import HorseInfoDTO
 from domain.race_history import RaceHistoryDto
 
 class ExportHorseData:
-    def __init__(self, output_dir):
-
-        # 出力先を確定
-        out_dir = Path(output_dir)
+    def __init__(self):
+        # フォルダ名の時刻を確定
+        date_str = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        folder_name = date_str + "_HorseInfomainon"
+        # ダウウンロード先のパス確定
+        user_folder = os.path.expanduser("~")
+        download_folder = os.path.join(user_folder, "Downloads")
+        self.output_path = os.path.join(download_folder, folder_name)
+        out_dir = Path(self.output_path)
         out_dir.mkdir(parents=True, exist_ok=True)
         self.output_dir = out_dir
 
-        # ファイル名の時刻を確定
-        self.date_str = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-
-    def export_horse_data_to_csv(self, horse_list: List[HorseInfoDTO]):
+    def export_horse_data_to_csv(self, horse_list: List[HorseInfoDTO]) -> str:
         """
         競走馬データをCSVファイルとして出力する関数
         
@@ -36,6 +41,11 @@ class ExportHorseData:
         
         # 3. レース履歴詳細CSV
         self.export_race_history(horse_list)
+
+        # 4. 圧縮
+        self.compress_output()
+
+        return self.output_path
 
     def export_basic_info(self, horse_list: List[HorseInfoDTO]):
         """基本情報のCSV出力"""
@@ -54,7 +64,7 @@ class ExportHorseData:
             basic_info_list.append(horse_dict)
         
         basic_df = pd.DataFrame(basic_info_list)
-        basic_df.to_csv(f"{self.output_dir}/{self.date_str}_horses_basic.csv", index=False, encoding="utf-8-sig")
+        basic_df.to_csv(f"{self.output_dir}/horses_basic.csv", index=False, encoding="utf-8-sig")
 
     def export_analysis_data(self, horse_list: List[HorseInfoDTO]):
         """予想家向け分析データの出力"""
@@ -143,7 +153,7 @@ class ExportHorseData:
             horse_analysis_list.append(horse_features)
         
         analysis_df = pd.DataFrame(horse_analysis_list)
-        analysis_df.to_csv(f"{self.output_dir}/{self.date_str}_horses_analysis.csv", index=False, encoding="utf-8-sig")
+        analysis_df.to_csv(f"{self.output_dir}/horses_analysis.csv", index=False, encoding="utf-8-sig")
 
     def export_race_history(self, horse_list: List[HorseInfoDTO]):
         """レース履歴詳細のCSV出力"""
@@ -168,4 +178,14 @@ class ExportHorseData:
             "horse_id", "horse_name", "horse_sex", "horse_father", "horse_grandfather"
         ] + [c for c in race_df.columns if c not in ("horse_id", "horse_name", "horse_sex", "horse_father", "horse_grandfather")]
         race_df = race_df[cols]
-        race_df.to_csv(f"{self.output_dir}/{self.date_str}_race_history_details.csv", index=False, encoding="utf-8-sig")
+        race_df.to_csv(f"{self.output_dir}/race_history_details.csv", index=False, encoding="utf-8-sig")
+    
+    def compress_output(self):
+        zip_path = self.output_dir.parent / f'{self.output_dir.name}.zip'
+        with zipfile.ZipFile(zip_path, 'w', compression=zipfile.ZIP_DEFLATED) as zipf:
+            for file_path in self.output_dir.glob('*'):
+                if file_path.is_file():
+                    zipf.write(file_path, arcname=file_path.name)
+
+        # 圧縮が終わったら元フォルダを削除
+        shutil.rmtree(self.output_dir)

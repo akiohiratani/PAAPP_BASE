@@ -2,7 +2,7 @@
 
 import React, { useState} from 'react';
 import { Horse } from '../domain/models/Horse';
-import { searchHorsesByHorseName, searchHorsesByRace } from '../infrastructure/api/HorseApiClient';
+import { searchHorsesByHorseName, searchHorsesByRace, exportHorseCSVData} from '../infrastructure/api/HorseApiClient';
 import SearchForm from '../components/features/horse/SearchForm';
 import HorseList from '../components/features/horse/HorseList';
 import { SearchDialog } from '../components/features/horse/SearchDialog';
@@ -53,9 +53,10 @@ export default function HorseSearchPage() {
   };
 
   // CSV出力ボタンのクリック処理例
-  const onExportCSVFile = () => {
+  const onExportCSVFile = async () => {
     setCsvExportDialog(false);
-    alert("出力開始");
+    
+    await exportHorseCSVData();
   }
 
   return (

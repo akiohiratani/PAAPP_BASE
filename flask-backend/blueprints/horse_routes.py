@@ -34,14 +34,15 @@ def get_horses_for_race_id():
     except Exception as e:
         return jsonify({"error": {"status_code": 500, "message": str(e)}}), 500
 
-@horses_bp.route('/data', methods=['GET'])
+@horses_bp.route('/data', methods=['POST'])
 def receive_ids():
     ## http://127.0.0.1:5000/api/horses/data
-    ids = ["2020101537", "2021105195", "2021105521"]
-    path = r'C:\Users\81909\Documents\horse'
+    data = request.get_json()  # JSONデータを取得
+    ids = data.get('ids')      # 'ids'キーの値（配列）を取り出す
+    # ids = ["2020101537", "2021105195", "2021105521"]
     try:
         horses = HorseClient().get_horses(ids)
-        ExportHorseData(path).export_horse_data_to_csv(horses)
-        return jsonify({'Status': "Success"}), 200
+        output_path = ExportHorseData().export_horse_data_to_csv(horses)
+        return jsonify({"data": output_path})
     except Exception as e:
         return jsonify({"error": {"status_code": 500, "message": str(e)}}), 500
