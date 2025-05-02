@@ -3,6 +3,7 @@ from services.horse_name_search_client import HorseNameSearchClient
 from services.horce_client import HorseClient
 from services.special_client import SpecialClient
 from services.race_client import RaceClient
+from services.export_horse_data import ExportHorseData
 
 horses_bp = Blueprint('horses', __name__, url_prefix='/api/horses')
 
@@ -30,5 +31,17 @@ def get_horses_for_race_id():
         horse_ids = RaceClient().get_horse_ids(race_id)
         horses = HorseClient().get_horses(horse_ids)
         return jsonify({"data": [h.to_dict() for h in horses ]})
+    except Exception as e:
+        return jsonify({"error": {"status_code": 500, "message": str(e)}}), 500
+
+@horses_bp.route('/data', methods=['GET'])
+def receive_ids():
+    ## http://127.0.0.1:5000/api/horses/data
+    ids = ["2020101537", "2021105195", "2021105521"]
+    path = r'C:\Users\81909\Documents\horse'
+    try:
+        horses = HorseClient().get_horses(ids)
+        ExportHorseData(path).export_horse_data_to_csv(horses)
+        return jsonify({'Status': "Success"}), 200
     except Exception as e:
         return jsonify({"error": {"status_code": 500, "message": str(e)}}), 500
