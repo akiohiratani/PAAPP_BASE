@@ -13,22 +13,25 @@ import { CsvExportDialog } from '../components/features/horse/CsvExportDialog';
 export default function HorseSearchPage() {
   const [horses, setHorses] = useState<Horse[]>([]);
   const [loading, setLoading] = useState(false);
+  const [loadMessage, setLoadingMessage] = useState("");
   const [isCsvExportDialog, setCsvExportDialog] = useState(false)
 
   const handleSearch = async (keyword: SearchType) => {
     setLoading(true);
+    setLoadingMessage("競走馬検索中")
     try {
       switch(keyword.type){
         case "horceName":{
             // 検索ワードから馬を抽出
-            if(keyword.value == null || keyword.value == "") return;
+            if(keyword.value == null || keyword.value === "") return;
+            
             const horseNameSearchResult = await searchHorsesByHorseName(keyword.value);
             setHorses(horseNameSearchResult);
             break;
         }
         case "raceId":{
             // レース名から馬を抽出
-            if(keyword.value == null || keyword.value == "") return;
+            if(keyword.value == null || keyword.value === "") return;
             const raceIdSearchResult = await searchHorsesByRace(keyword.value);
             setHorses(raceIdSearchResult);
             break;
@@ -55,8 +58,16 @@ export default function HorseSearchPage() {
   // CSV出力ボタンのクリック処理例
   const onExportCSVFile = async () => {
     setCsvExportDialog(false);
-    
-    await exportHorseCSVData();
+    setLoading(true);
+    setLoadingMessage("CSVファイル出力中・・・")
+    try{
+      await exportHorseCSVData();
+    }catch (error) {
+      console.error('出力エラー:', error);
+      alert('出力に失敗しました');
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -71,11 +82,8 @@ export default function HorseSearchPage() {
         </button>
       </div>
       <SearchForm onSearch={handleSearch} />
-      {loading ? (
-        <SearchDialog isOpen={loading} message="検索中..."/>
-      ) : (
-        <HorseList horses={horses} />
-      )}
+      <SearchDialog isOpen={loading} message={loadMessage}/>
+      <HorseList horses={horses} />
       <CsvExportDialog 
         open={isCsvExportDialog}
         onClose={() => {setCsvExportDialog(false)}}
