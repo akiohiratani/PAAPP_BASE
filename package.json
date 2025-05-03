@@ -1,7 +1,7 @@
 {
-  "name": "base-project",
+  "name": "akio-horse-research",
   "version": "1.0.0",
-  "description": "electron-flask-app/\r ├── electron/              # Electronメインプロセス\r │   ├── main.ts            # メインスクリプト\r │   └── tsconfig.json      # TypeScript設定\r ├── flask-backend/         # Flaskバックエンド\r │   ├── app.py             # Flaskアプリケーション\r │   ├── requirements.txt   # Python依存関係\r │   └── venv/              # Python仮想環境\r ├── react-frontend/        # Reactフロントエンド\r │   ├── public/            # 静的リソース\r │   ├── src/               # ソースコード\r │   ├── tsconfig.json      # TypeScript設定\r │   └── package.json       # フロントエンド依存関係\r ├── package.json           # ルートプロジェクト設定\r └── .env                   # 環境変数設定",
+  "description": "horse-research",
   "main": "electron/dist/main.js",
   "scripts": {
     "start:front": "cd react-frontend && npm start",

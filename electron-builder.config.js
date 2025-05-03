@@ -4,10 +4,11 @@ module.exports = {
   directories: {
     output: "dist"
   },
+  icon:"assets/icon",
   files: [
     "electron/**/*",
     "react-frontend/build/**/*",
-    "flask-backend/dist/**/*"  // 明示的に追加
+    "flask-backend/dist/**/*"
   ],
   extraResources: [
     {
