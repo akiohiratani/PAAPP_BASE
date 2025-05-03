@@ -23,10 +23,12 @@ electron-flask-app/
 cd flask-backend 
 python -m venv venv
 venv\Scripts\activate
-pip install flask flask-cors pyinstaller
+pip install -r requirements.txt
 pip freeze > requirements.txt
-pyinstaller --onefile app.py --name flask-app
 python app.py
+
+rmdir /s /q dist
+pyinstaller --onefile app.py --name flask-app
 ```
 
 ## フロントエンド
