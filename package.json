@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "horse-research",
   "main": "electron/dist/main.js",
+  "icon": "assets/icon",
   "scripts": {
     "start:front": "cd react-frontend && npm start",
     "start:back": "cd flask-backend && python app.py",

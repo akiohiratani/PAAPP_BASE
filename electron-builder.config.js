@@ -4,7 +4,6 @@ module.exports = {
   directories: {
     output: "dist"
   },
-  icon:"assets/icon",
   files: [
     "electron/**/*",
     "react-frontend/build/**/*",
@@ -14,11 +13,6 @@ module.exports = {
     {
       "from": "flask-backend/dist/flask-app.exe",
       "to": "flask-bin/flask-app.exe",
-      "filter": ["**/*"]
-    },
-    {
-      "from": "flask-backend/venv/Lib/site-packages",
-      "to": "venv/Lib/site-packages",
       "filter": ["**/*"]
     }
   ],
