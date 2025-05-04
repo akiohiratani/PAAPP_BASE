@@ -11,8 +11,8 @@ let win;
 let flaskProcess;
 const getPythonPath = () => {
     return electron_1.app.isPackaged
-        ? path_1.default.join(process.resourcesPath, 'flask-bin/flask-app.exe')
-        : path_1.default.join(__dirname, '../../flask-backend/dist/flask-app.exe');
+        ? path_1.default.join(__dirname, '../../flask-backend/dist/flask-app.exe')
+        : path_1.default.join(process.resourcesPath, 'flask-bin/flask-app.exe');
 };
 const startFlaskServer = () => {
     flaskProcess = (0, child_process_1.spawn)(getPythonPath(), [electron_1.app.isPackaged ? '../flask-bin/flask-app.exe' : 'app.py'], { cwd: electron_1.app.isPackaged ? process.resourcesPath : __dirname });

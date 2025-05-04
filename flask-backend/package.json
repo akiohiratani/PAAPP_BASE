@@ -1,5 +1,6 @@
 {
   "scripts": {
-    "build:flask": "pyinstaller --onefile app.py --name flask-app --distpath ./dist"
+    "start":"python app.py",
+    "build": "pyinstaller --onefile app.py --name flask-app --distpath ./dist"
   }
 }

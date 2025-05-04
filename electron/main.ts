@@ -8,8 +8,8 @@ let flaskProcess: ReturnType<typeof spawn>;
 
 const getPythonPath = () => {
   return app.isPackaged
-    ? path.join(process.resourcesPath, 'flask-bin/flask-app.exe')
-    : path.join(__dirname, '../../flask-backend/dist/flask-app.exe');
+    ? path.join(__dirname, '../../flask-backend/dist/flask-app.exe')
+    : path.join(process.resourcesPath, 'flask-bin/flask-app.exe');
 };
 
 const startFlaskServer = () => {

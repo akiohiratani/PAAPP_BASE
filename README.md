@@ -18,39 +18,56 @@ electron-flask-app/
 ```
 ## 開発
 
-### バックエンド
+## バックエンド
+
+#### 仮想環境のセットアップ
 ```
 cd flask-backend 
+rmdir /s venv
 python -m venv venv
 venv\Scripts\activate
-pip install flask flask-cors pyinstaller
+pip install -r requirements.txt
 pip freeze > requirements.txt
-pyinstaller --onefile app.py --name flask-app
-python app.py
+npm run start
+```
+#### ビルド
+```
+taskkill /IM flask-app.exe /F
+rmdir /s /q dist
+npm run build
+
 ```
 
 ## フロントエンド
+
+### 開発用
 ```
 cd react-frontend
 npm run start
+```
+
+### ビルド
+```
+rmdir /s /q react-frontend\build
+npm run build:react
 
 ```
 ## Electron
+```
 start:electron
-npx electron-packager . AkioHorseSearcher --platform=win32 --icon=assets/icon.ico
+npm run build:electron
 
+Ctrl + Shift + I
+```
 
 # 本番環境向けビルド手順
 ```
-rmdir /s /q dist
-rmdir /s /q flask-backend\dist
-rmdir /s /q react-frontend\build
+taskkill /IM flask-app.exe /F
 
-npm run build:flask
-npm run build:react
-npm run build:electron
+npm run make
+npm run make --loglevel verbose
+npm run make -- --log-level=debug
 
-npx electron-builder --win --config electron-builder.config.js
 
 ```
 # 競馬データ出力ファイルのマニュアル
